@@ -68,8 +68,9 @@ https://api.cloudflare.com/client/v4/zones/{zone_id}/dnssec \
 ### Prerequisites
 
 - Your secondary zone in Cloudflare already exists and zone transfers from your primary DNS provider are working correctly.
-- Your primary DNS provider supports DNSSEC using NSEC records.
 - Your primary DNS provider transfers out DNSSEC related records, such as RRSIG, DNSKEY, and NSEC.
+- [Authenticated denial of existence (RFC 7129)](https://www.rfc-editor.org/rfc/rfc7129.html): If your primary DNS provider uses NSEC3 (instead of NSEC), you must manually [enable NSEC3 support](#) via API.
+
 
 ### Steps
 
