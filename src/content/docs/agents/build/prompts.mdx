@@ -498,7 +498,7 @@ const sql = postgres(env.HYPERDRIVE.connectionString)
       return Response.json(
         { error: e instanceof Error ? e.message : e },
         { status: 500 },
-      );
+      ); 
     }
 
 },
@@ -775,6 +775,7 @@ You can use the prompt in several ways:
 	* Cursor: add the prompt to [your Project Rules](https://docs.cursor.com/context/rules-for-ai)
 	* Zed: use [the `/file` command](https://zed.dev/docs/assistant/assistant-panel) to add the prompt to the Assistant context.
 	* Windsurf: use [the `@-mention` command](https://docs.codeium.com/chat/overview) to include a file containing the prompt to your Chat.
+	* GitHub Copilot: create the [`.github/copilot-instructions.md`](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot) file in your repository and add the prompt.
 
 For example, you can use the prompts here with the OpenAI SDK by saving the prompt to a file within your project directory and passing the text to the `system` prompt.
 
