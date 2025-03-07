@@ -5,7 +5,7 @@ productLink: "/workers-ai/"
 productArea: Developer platform
 productAreaLink: /workers/platform/changelog/platform/
 entries:
-  - publish_date: "2025-03-07"
+  - publish_date: "2025-02-21"
     title: Workers AI bug fixes
     description: |-
     - We fixed a bug where `max_tokens` defaults were not properly being respected - `max_tokens` now correctly defaults to `256` as displayed on the model pages. Users relying on the previous behaviour may observe this as a breaking change. If you want to generate more tokens, please set the `max_tokens` parameter to what you need.
