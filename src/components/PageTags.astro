@@ -7,23 +7,20 @@ import { tagsValues } from "~/schemas/tags";
 type Props = z.infer<typeof props>;
 
 const props = z.object({
-	tags: z
-		.array(z.string())
-		.optional()
-		.transform((tags) => {
-			if (tags) {
-				// Only keep values that are in tagsValues
-				return tags.filter((tag) => tagsValues.includes(tag));
-			}
-			return [];
-		}),
+	tags: z.array(z.string()).transform((tags) => {
+		if (tags) {
+			// Only keep values that are in tagsValues
+			return tags.filter((tag) => tagsValues.includes(tag));
+		}
+		return [];
+	}),
 });
 
 const { tags } = props.parse(Astro.props);
 ---
 
 {
-	tags && (
+	tags && tags?.length > 0 && (
 		<div class="flex flex-row gap-2">
 			<strong>Page tags:</strong>
 			{tags.map((tag) => (
