@@ -16,6 +16,7 @@ Using Workers KV to store routing data to route requests across various web serv
 
 Routing can be helpful to route requests coming into a single Cloudflare Worker application to different web servers based on the request's path, hostname, or other request attributes.
 
+
 In single-tenant applications, this can be used to route requests to various origin servers based on the business domain (for example, requests to `/admin` routed to administration server, `/store` routed to storefront server, `/api` routed to the API server).
 
 In multi-tenant applications, requests can be routed to the tenant's respective origin resources (for example, requests to `tenantA.your-worker-hostname.com` routed to server for Tenant A, `tenantB.your-worker-hostname.com` routed to server for Tenant B).
