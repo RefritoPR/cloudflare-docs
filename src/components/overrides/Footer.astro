@@ -2,6 +2,7 @@
 import Default from "@astrojs/starlight/components/Footer.astro";
 import OneTrust from "../OneTrust.astro";
 import FeedbackPrompt from "../FeedbackPrompt.tsx";
+import PageTags from "~/components/PageTags.astro";
 import { getEntry } from "astro:content";
 
 let links = {
@@ -23,6 +24,9 @@ if (currentSection) {
 		}
 	}
 }
+
+const frontmatter = Astro.locals.starlightRoute.entry.data;
+const tags = frontmatter.tags;
 
 const homepageLinks = Object.entries({
 	Resources: [
@@ -128,6 +132,8 @@ if (
 				<FeedbackPrompt client:idle />
 			</div>
 			<Default />
+			<br />
+			{tags && <PageTags tags={tags} />}
 			<div id="footer-links" class="mt-6 flex flex-wrap items-center space-x-4">
 				{Object.entries(links).map(([text, href]) => (
 					<a href={href} class="text-xs text-black decoration-accent">

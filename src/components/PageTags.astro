@@ -1,0 +1,39 @@
+---
+import { z } from "astro:schema";
+import { Badge } from "@astrojs/starlight/components";
+import { componentToString } from "~/util/container";
+import { tagsValues } from "~/schemas/tags";
+
+type Props = z.infer<typeof props>;
+
+const props = z.object({
+	tags: z.enum(tagsValues).array().optional(),
+});
+
+const parsedValues = props.safeParse(Astro.props);
+let tagPlaceholder: Array<String>;
+
+if (!parsedValues.success) {
+	// handle error then return
+	tagPlaceholder = [];
+} else {
+	// do something
+	tagPlaceholder = parsedValues.data.tags;
+}
+
+const tags = tagPlaceholder;
+console.log(tagPlaceholder);
+console.log(parsedValues);
+---
+
+{
+	tags && (
+		<div class="flex flex-row gap-2">
+			{tags.map((tag) => (
+				<a href={`/search/?tag=${tag}`} class="no-underline">
+					<Badge text={tag} variant="tip" />
+				</a>
+			))}
+		</div>
+	)
+}

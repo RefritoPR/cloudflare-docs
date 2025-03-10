@@ -1,6 +1,7 @@
 import { z } from "astro:schema";
 import { BadgeConfigSchema } from "./types/badge";
 import type { SchemaContext } from "astro:content";
+import { tagsValues } from "./tags";
 
 const spotlightAuthorDetails = z
 	.object({
@@ -44,7 +45,11 @@ export const baseSchema = ({ image }: SchemaContext) =>
 				"Refer to https://developers.cloudflare.com/style-guide/documentation-content-strategy/content-types/.",
 			),
 		content_type: z.string().optional(),
-		tags: z.string().array().optional(),
+		tags: z
+			.enum(tagsValues)
+			.array()
+			.optional()
+			.catch((ctx) => ctx.input),
 		external_link: z
 			.string()
 			.optional()

@@ -39,6 +39,7 @@ export { default as PagesBuildEnvironmentTools } from "./PagesBuildEnvironmentTo
 export { default as PagesBuildPreset } from "./PagesBuildPreset.astro";
 export { default as PagesBuildPresetsTable } from "./PagesBuildPresetsTable.astro";
 export { default as PagesLanguageSupport } from "./PagesLanguageSupport.astro";
+export { default as PageTags } from "./PageTags.astro";
 export { default as Plan } from "./Plan.astro";
 export { default as PlanInfo } from "./PlanInfo.astro";
 export { default as ProductReleaseNotes } from "./ProductReleaseNotes.astro";
