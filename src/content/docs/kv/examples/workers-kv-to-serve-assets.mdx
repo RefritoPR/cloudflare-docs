@@ -20,9 +20,11 @@ With [Workers KV](/kv), you can access, edit and store assets directly from your
 
 ## Write static assets to Workers KV using Wrangler
 
-To store static assets in Workers KV, you can use the [Wrangler CLI](/workers/wrangler/) (commonly used during development), the [Workers KV binding](/kv/concepts/kv-bindings/) from a Workers application, or the [Workers KV REST API](/api/resources/kv/subresources/namespaces/methods/list/) (commonly used to access Workers KV from an external application). We'll demonstrate how to use the Wrangler CLI.
+To store static assets in Workers KV, you can use the [Wrangler CLI](/workers/wrangler/) (commonly used during development), the [Workers KV binding](/kv/concepts/kv-bindings/) from a Workers application, or the [Workers KV REST API](/api/resources/kv/subresources/namespaces/methods/list/) (commonly used to access Workers KV from an external application). We will demonstrate how to use the Wrangler CLI.
 
-For this scenario, we'll be storing a sample HTML file within our Workers KV store. Create a new file `index.html` with the following content:
+For this scenario, we will store a sample HTML file within our Workers KV store.
+
+Create a new file `index.html` with the following content:
 
 ```html title="index.html"
 Hello World!
@@ -118,7 +120,7 @@ export default {
 </TabItem>
 </Tabs>
 
-This code parses the key name for the key-value pair to fetch from the HTTP request. Then, it determines the proper MIME type for the response to indicate to the browser how to handle the response.
+This code parses the key name for the key-value pair to fetch from the HTTP request. Then, it determines the proper MIME type for the response to inform the browser how to handle the response.
 To retrieve the value from the KV store, this code uses `arrayBuffer` to properly handle binary data such as images, documents, and video/audio files.
 
 Given a sample key-value pair with key `index.html` with value containing some HTML content in our Workers KV namespace store, we can access our Workers application
@@ -130,7 +132,7 @@ Try it out with an image or a document and you will see that this Worker is also
 
 In addition to serving static assets, we can also generate dynamic HTML or API responses based on the values stored in our KV store.
 
-Start by creating this file in the root of your project:
+1. Start by creating this file in the root of your project:
 
 ```json title="hello-world.json"
 [
@@ -169,13 +171,13 @@ Start by creating this file in the root of your project:
 ]
 ```
 
-Open a terminal and enter the following KV command to create a KV entry for the translations file:
+2. Open a terminal and enter the following KV command to create a KV entry for the translations file:
 
 ```sh
 npx wrangler kv key put hello-world.json --path hello-world.json --namespace-id=<ENTER_NAMESPACE_ID_HERE>
 ```
 
-Update your Workers code to add logic to serve a translated HTML file based on the language of the Accept-Language header of the request:
+3. Update your Workers code to add logic to serve a translated HTML file based on the language of the Accept-Language header of the request:
 
 <Tabs>
 <TabItem label="index.ts">

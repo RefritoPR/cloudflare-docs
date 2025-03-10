@@ -13,11 +13,11 @@ description: Example of how to use Workers KV to build a distributed application
 import { Render, PackageManagers, Tabs, TabItem } from "~/components";
 
 Workers KV can be used as a persistent, single, global cache accessible from Cloudflare Workers to speed up your application.
-Data cached in Workers KV will be accessible from all other Cloudflare locations as well and will be persisted until expiry or deletion.
+Data cached in Workers KV is accessible from all other Cloudflare locations as well, and persists until expiry or deletion.
 
 After fetching data from external resources in your Workers application, you can write the data to Workers KV.
 On subsequent Worker requests (in the same region or in other regions), you can read the cached data from Workers KV instead of calling the external API.
-This improves your Worker application's performance and resilience while reducing load on the external resource.
+This improves your Worker application's performance and resilience while reducing load on external resources.
 
 This example shows how you can cache data in Workers KV and read cached data from Workers KV in a Worker application.
 

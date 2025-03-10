@@ -14,7 +14,7 @@ import { Render, PackageManagers, Tabs, TabItem } from "~/components";
 
 Storing application configuration data is an ideal use case for Workers KV. Configuration data can include data to personalize an application for each user or tenant, enable features for user groups, restrict access with allow-lists/deny-lists, etc. These use-cases can have high read volumes that are highly cacheable by Workers KV, which can ensure low-latency reads from your Workers application.
 
-In this example, application configuration data is used to personalize the Workers application for each user. The configuration data is stored in an external application and database and written to Workers KV using the REST API.
+In this example, application configuration data is used to personalize the Workers application for each user. The configuration data is stored in an external application and database, and written to Workers KV using the REST API.
 
 ## Write your configuration from your external application to Workers KV
 
@@ -221,19 +221,15 @@ export default {
 </TabItem>
 </Tabs>
 
-This code will use the path within the URL and find the file associated to the path within the KV store. It also sets the proper MIME type in the response to indicate to the browser how to handle the response. To retrieve the value from the KV store, this code uses `arrayBuffer` to properly handle binary data such as images, documents, and video/audio files.
+This code will use the path within the URL and find the file associated to the path within the KV store. It also sets the proper MIME type in the response to inform the browser how to handle the response. To retrieve the value from the KV store, this code uses `arrayBuffer` to properly handle binary data such as images, documents, and video/audio files.
 
-## Optimizing performance for configuration
+## Optimize performance for configuration
 
-To optimize performance, you may opt to consolidate values in fewer key-value pairs. By doing so, you may
-benefit from higher caching efficiency and lower latency. 
+To optimize performance, you may opt to consolidate values in fewer key-value pairs. By doing so, you may benefit from higher caching efficiency and lower latency. 
 
-For example, instead of storing each user's configuration
-in a separate key-value pair, you may store all users' configurations in a single key-value pair. This approach
-may be suitable for use-cases where the configuration data is small and can be easily managed in a single key-value pair
-(the [size limit for a Workers KV value is 25 MiB](/kv/platform/limits/)).
+For example, instead of storing each user's configuration in a separate key-value pair, you may store all users' configurations in a single key-value pair. This approach may be suitable for use-cases where the configuration data is small and can be easily managed in a single key-value pair (the [size limit for a Workers KV value is 25 MiB](/kv/platform/limits/)).
 
 ## Related resources
 
-- [Rust support in Workers](/workers/languages/rust/).
-- [Using KV in Workers](/kv/get-started/).
+- [Rust support in Workers](/workers/languages/rust/)
+- [Using KV in Workers](/kv/get-started/)
