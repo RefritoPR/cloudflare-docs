@@ -36,21 +36,32 @@ Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflar
 
 <Render file="access/add-target" params={{ protocol: "rdp" }}/>
 
-## 3. Add your application to Access
+## 3. Create an Access application
 
-<Render file="access/self-hosted-app" />
+<Render file="access/self-hosted-app/create-app" />
 
+6. Select **Add public hostname**.
+
+7. <Render file="access/self-hosted-app/choose-domain" product="cloudflare-one" />
+
+8. <Render file="access/add-access-policies" product="cloudflare-one" />
+
+9. <Render file="access/access-choose-idps" product="cloudflare-one" />
+
+10. Select **Next**.
+
+11. (Optional) Configure [App Launcher settings](/cloudflare-one/applications/app-launcher/) for the application.
+
+12. <Render file="access/access-block-page" product="cloudflare-one" />
+
+13. Select **Next**.
+
+14. <Render file="access/self-hosted-app/advanced-settings" product="cloudflare-one" />
+
+15. Select **Save**.
 
 ## Product compatibility
 
-When using Access self-hosted applications, the majority of Cloudflare products will be compatible with your application.
-
-However, the following products are not supported:
-
-* [Automatic Signed Exchanges](/speed/optimization/other/signed-exchanges/)
-* [Automatic Platform Optimization](/automatic-platform-optimization)
-* [Zaraz](/zaraz)
-
-You can disable Automatic Signed Exchanges and Zaraz for a specific application - instead of across your entire zone - using a [Configuration Rule](/rules/configuration-rules/) scoped to the application domain.
+ <Render file="access/self-hosted-app/product-compatibility" product="cloudflare-one" />
 
 
