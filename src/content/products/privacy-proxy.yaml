@@ -17,15 +17,6 @@ resources:
     dashboard_link:
     discord: https://discord.gg/cloudflaredev
 
-externals:
-  - title: Cloudflare homepage
-    url: https://cloudflare.com
-
-algolia:
-  index:
-  apikey:
-  product: privacy-proxy
-
 ## Environments
 
 
