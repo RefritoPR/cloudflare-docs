@@ -20,7 +20,7 @@ While SMB was developed for Microsoft Windows, Samba provides SMB connectivity f
 
 ## Connect to SMB server with WARP to Tunnel
 
-<Render file="tunnel/warp-to-tunnel-intro" />
+You can use Cloudflare Tunnel to create a secure, outbound-only connection from your server to Cloudflare's global network. This requires running the `cloudflared` daemon on the server. Users reach the service by installing the [Cloudflare WARP client](/cloudflare-one/connections/connect-devices/warp/) on their device and enrolling in your Zero Trust organization. Remote devices will be able to connect as if they were on your private network. By default, all devices enrolled in your organization can access the service unless you build policies to allow or block specific users.
 
 ### 1. Connect the server to Cloudflare
 
@@ -60,7 +60,9 @@ While SMB was developed for Microsoft Windows, Samba provides SMB connectivity f
 
 ## Connect to SMB server with `cloudflared access`
 
-<Render file="tunnel/cloudflared-access" />
+Cloudflare Tunnel can also route applications through a public hostname, which allows users to connect to the application without the WARP client. This method requires having `cloudflared` installed on both the server machine and on the client machine, as well as an active zone on Cloudflare. The traffic is proxied over this connection, and the user logs in to the server with their Cloudflare Access credentials.
+
+The public hostname method can be implemented in conjunction with routing over WARP so that there are multiple ways to connect to the server. You can reuse the same tunnel for both the private network and public hostname routes.
 
 ### 1. Connect the server to Cloudflare
 
