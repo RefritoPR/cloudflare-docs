@@ -135,7 +135,7 @@ Requires the [Super Administrator](/cloudflare-one/roles-permissions/) role.
 
 **Global WARP override** allows administrators to fail open WARP in case of an incident or outage. When you turn on **Global WARP override**, Cloudflare will immediately disconnect all WARP clients that are connected to your Zero Trust organization. End users will receive a notification on their device and the WARP client will display `The administrator for your account has disconnected WARP`.
 
-All clients including end user devices, [WARP Connector](/cloudflare-one/connections/connect-networks/private-net/warp-connector/) hosts, and [WARP-to-WARP](/cloudflare-one/connections/connect-networks/private-net/warp-to-warp/) devices will be unable to connect until you turn off **Global WARP override**. [Auto connect](#auto-connect) settings and any active [Admin override](#admin-override) codes will not apply while the override is on.
+All clients including end user devices, [WARP Connector](/cloudflare-one/connections/connect-networks/private-net/warp-connector/) hosts, and [WARP-to-WARP](/cloudflare-one/connections/connect-networks/private-net/warp-to-warp/) devices will be unable to connect until you turn off **Global WARP override**. [Auto connect](#auto-connect), [Lock WARP switch](#lock-warp-switch), and any active [Admin override](#admin-override) codes will not apply while the override is on.
 
 You can provide users with a new [Admin override](#admin-override) code to manually reconnect as needed during the override. For example, you may want IT staff to test resolution of the incident that led to the global disconnect.
 
