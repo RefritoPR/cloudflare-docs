@@ -10,32 +10,36 @@ sidebar:
 
 import { Render } from "~/components"
 
-You can securely publish internal tools and applications by adding Cloudflare Access as an authentication layer between the end user and your origin server.
+:::note
+Browser-based RDP is currently in closed beta. To try out the feature, contact your account team.
+:::
+
+With Cloudflare Zero Trust, you can allow users to connect to an RDP server without installing an RDP client or the WARP client on their device. This method requires installing `cloudflared` on your RDP server (or any other host machine within the private network) and routing RDP traffic over a public hostname.
+
+The user logs in first to the App Launcher with their Cloudflare Access credentials and then initiates an RDP connection within the browser to their Windows machine. Users will authenticate to the Windows machine using their pre-configured Windows username and password. Cloudflare does not manage any credentials on the Windows server. A user may also navigate directly to the Windows server using a public URL. The authentication flow will be unchanged; first users must log in to Cloudflare Access and then use their Windows credentials to authenticate to the Windows machine.
+
+Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflare-one/connections/connect-networks/use-cases/rdp/rdp-warp-to-tunnel/) so that there are multiple ways to connect to the server. You can reuse the same Cloudflare Tunnel when configuring each connection method.
 
 ## Prerequisites
 
 - An [active domain on Cloudflare](/fundamentals/setup/manage-domains/add-site/)
 - Domain uses either a [full setup](/dns/zone-setups/full-setup/) or a [partial (`CNAME`) setup](/dns/zone-setups/partial-setup/)
+- RDP server runs Windows XXX or above.
 
-## 1. Add your application to Access
+## 1. Connect the server to Cloudflare
+
+<Render file="tunnel/connect-private-network" />
+
+2. In the **Private Networks** tab for the tunnel, enter the IP or CIDR address of your server. Typically this would be a private IP, but public IPs are also allowed.
+
+## 2. Add a target
+
+<Render file="access/add-target" params={{ protocol: "rdp" }}/>
+
+## 3. Add your application to Access
 
 <Render file="access/self-hosted-app" />
 
-## 2. Connect your origin to Cloudflare
-
-[Set up a Cloudflare Tunnel](/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/) to publish your internal application. Only users who match your Access policies will be granted access.
-
-:::note
-We recommend [creating an Access application](#1-add-your-application-to-access) before setting up the tunnel route. If you do not have an Access application in place, public hostname routes in Tunnel are available to anyone on the Internet.
-:::
-
-If your application is already publicly routable, a Tunnel is not strictly required. However, you will then need to protect your origin IP using [other methods](/fundamentals/security/protect-your-origin-server/).
-
-## 3. Validate the Access token
-
-<Render file="access/secure-tunnel-with-access" />
-
-Users can now connect to your self-hosted application after authenticating with Cloudflare Access.
 
 ## Product compatibility
 
@@ -48,3 +52,5 @@ However, the following products are not supported:
 * [Zaraz](/zaraz)
 
 You can disable Automatic Signed Exchanges and Zaraz for a specific application - instead of across your entire zone - using a [Configuration Rule](/rules/configuration-rules/) scoped to the application domain.
+
+
