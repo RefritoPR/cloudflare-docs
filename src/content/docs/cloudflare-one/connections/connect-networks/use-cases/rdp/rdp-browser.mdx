@@ -42,23 +42,41 @@ Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflar
 
 6. Select **Add public hostname**.
 
+		:::note
+		Browser-based RDP is only compatible with public hostnames. If you add a private hostname or IP, RDP functionality will not be available in this application.
+		:::
+
 7. <Render file="access/self-hosted-app/choose-domain" product="cloudflare-one" />
 
-8. <Render file="access/add-access-policies" product="cloudflare-one" />
+8. Expand **Browser rendering settings**. In the **Browser rendering** dropdown, select _RDP_.
 
-9. <Render file="access/access-choose-idps" product="cloudflare-one" />
+9. In **Target criteria**, select the [target hostname(s)](#2-add-a-target) that define your RDP servers. The application definition will apply to all targets that share the selected target hostname, including any targets added in the future.
 
-10. Select **Next**.
+10. In **Port**, enter the [RDP listening port](https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/change-listening-port) of your server. It will likely be port `3389`.
 
-11. (Optional) Configure [App Launcher settings](/cloudflare-one/applications/app-launcher/) for the application.
+11. (Optional) If you run RDP on more than one port, select **Add new target criteria** and reconfigure the same target hostname with the different port number.
 
-12. <Render file="access/access-block-page" product="cloudflare-one" />
+12. <Render file="access/add-access-policies" product="cloudflare-one" />
 
-13. Select **Next**.
+13. <Render file="access/access-choose-idps" product="cloudflare-one" />
 
-14. <Render file="access/self-hosted-app/advanced-settings" product="cloudflare-one" />
+14. Select **Next**.
 
-15. Select **Save**.
+15. (Recommended) Turn on **Show application in App Launcher** and configure [App Launcher settings](/cloudflare-one/applications/app-launcher/) for the application. The App Launcher allows users to view the Windows servers that they can access using browser-based RDP. Without the App Launcher, users will need to know each target's direct URL.
+
+		:::note
+		Ensure that users have a matching rule in your [App Launcher policies](/cloudflare-one/applications/app-launcher/#enable-the-app-launcher).
+		:::
+
+16. <Render file="access/access-block-page" product="cloudflare-one" />
+
+17. Select **Next**.
+
+18. <Render file="access/self-hosted-app/advanced-settings" product="cloudflare-one" />
+
+19. Select **Save**.
+
+## 4. Connect as a user
 
 ## Product compatibility
 
