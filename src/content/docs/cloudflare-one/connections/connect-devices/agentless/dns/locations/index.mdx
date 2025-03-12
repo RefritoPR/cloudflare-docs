@@ -45,6 +45,19 @@ For more information, refer to [DNS over TLS](/cloudflare-one/connections/connec
 
 Gateway requires a DoH endpoint for default DNS locations. For more information, refer to [DNS over HTTPS](/cloudflare-one/connections/connect-devices/agentless/dns/dns-over-https/).
 
+## Secure DNS locations
+
+Some DNS locations can be classified as a secure location. This is useful in situations such as [protective DNS (PDNS)](/reference-architecture/diagrams/sase/gateway-for-protective-dns/).
+
+For a DNS location to be considered secure, Gateway requires:
+
+- Your BYOIP addresses (if any) are assigned to your IPv4 and IPv6 endpoints
+- Source network filtering is configured for your IPv4, IPv6, and DoT endpoints
+- Source network filtering or token authentication are configured for your DoH endpoints
+- Any enabled endpoints in a DNS location must meet security permissions to be considered secure.
+
+You can assign users or separate MSPs the ability to create secure DNS locations with the [**Cloudflare Zero Trust DNS Locations Write** role](/cloudflare-one/roles-permissions/#zero-trust-roles). Users with this role can view any DNS location, but can only create or edit secure locations.
+
 ## Limitations
 
 ### Captive portals
