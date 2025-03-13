@@ -24,7 +24,6 @@ export { default as GitHubCode } from "./GitHubCode.astro";
 export { default as Glossary } from "./Glossary.astro";
 export { default as GlossaryDefinition } from "./GlossaryDefinition.astro";
 export { default as GlossaryTooltip } from "./GlossaryTooltip.astro";
-export { default as HomepageHero } from "./HomepageHero.astro";
 export { default as InlineBadge } from "./InlineBadge.astro";
 export { default as LastReviewed } from "./LastReviewed.astro";
 export { default as LinkTitleCard } from "./LinkTitleCard.astro";
@@ -62,13 +61,3 @@ export { default as WorkersArchitectureDiagram } from "./WorkersArchitectureDiag
 export { default as WorkersIsolateDiagram } from "./WorkersIsolateDiagram.astro";
 export { default as WorkerStarter } from "./WorkerStarter.astro";
 export { default as YouTube } from "./YouTube.astro";
-
-// Taken from Astro
-export { default as ListCard } from "./astro/ListCard.astro";
-export { default as FourCardGrid } from "./FourCardGrid.astro";
-
-// Homepage
-export { default as FeaturedContentSection } from "./homepage/FeaturedContentSection.astro";
-export { default as FooterHeroBlock } from "./homepage/FooterHeroBlock.astro";
-export { default as RecommendedContentSection } from "./homepage/RecommendedContentSection.astro";
-export { default as TryItSection } from "./homepage/TryItSection.astro";
