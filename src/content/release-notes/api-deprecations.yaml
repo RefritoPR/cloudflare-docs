@@ -5,6 +5,16 @@ productLink: "/fundamentals/"
 productArea: Core platform
 productAreaLink: /fundamentals/reference/changelog/platform/
 entries:
+
+  - publish_date: "2025-03-17"
+    title: "Security Center: Security level and Threat Score are deprecated"
+    description: |-
+      Deprecation date: March 17, 2025
+
+      End of life date: March 17, 2025
+
+      Security Level and Threat Score are deprecated and will be removed on March 17, 2025. They will no longer be available via the Rulesets API or Terraform. They will not be available to be configured on the Cloudflare dashboard.
+
   - publish_date: "2025-03-11"
     title: "Cloudflare Radar: Layer 7 attack magnitude parameter"
     description: |-
