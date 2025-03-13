@@ -48,6 +48,10 @@ Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflar
 
 7. <Render file="access/self-hosted-app/choose-domain" product="cloudflare-one" />
 
+		:::note
+		You can only enable browser-based RDP on domains and subdomains, not for specific paths.
+		:::
+
 8. Expand **Browser rendering settings**. In the **Browser rendering** dropdown, select _RDP_.
 
 9. In **Target criteria**, select the [target hostname(s)](#2-add-a-target) that define your RDP servers. The application definition will apply to all targets that share the selected target hostname, including any targets added in the future.
@@ -58,6 +62,10 @@ Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflar
 
 12. <Render file="access/add-access-policies" product="cloudflare-one" />
 
+:::note
+Ensure that only **Allow** or **Block** policies are present. **Bypass** and **Service Auth** are not supported for browser-rendered applications.
+:::
+
 13. <Render file="access/access-choose-idps" product="cloudflare-one" />
 
 14. Select **Next**.
@@ -65,7 +73,7 @@ Browser-based RDP can be used in conjunction with [routing over WARP](/cloudflar
 15. (Recommended) Turn on **Show application in App Launcher** and configure [App Launcher settings](/cloudflare-one/applications/app-launcher/) for the application. The App Launcher allows users to view the Windows servers that they can access using browser-based RDP. Without the App Launcher, users will need to know each target's direct URL.
 
 		:::note
-		Ensure that users have a matching rule in your [App Launcher policies](/cloudflare-one/applications/app-launcher/#enable-the-app-launcher).
+		Ensure that users match an Allow rule in your [App Launcher policies](/cloudflare-one/applications/app-launcher/#enable-the-app-launcher).
 		:::
 
 16. <Render file="access/access-block-page" product="cloudflare-one" />
