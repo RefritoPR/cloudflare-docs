@@ -21,6 +21,14 @@ This improves your Worker application's performance and resilience while reducin
 
 This example shows how you can cache data in Workers KV and read cached data from Workers KV in a Worker application.
 
+:::note[Note]
+
+You can also cache data in Workers with the [Cache API](https://developers.cloudflare.com/workers/runtime-apis/cache/). With the Cache API,
+the contents of the cache do not replicate outside of the originating data center and the cache is ephemeral (can be evicted).
+
+With Workers KV, the data is persisted by default to [central stores](/kv/concepts/how-kv-works/) and can be accessed from other Cloudflare locations.
+:::
+
 ## Cache data in Workers KV from your Worker application
 
 In the following `index.ts` file, the Worker fetches data from an external server and caches the response in Workers KV. If the data is already cached in Workers KV, the Worker reads the cached data from Workers KV instead of calling the external API.
@@ -72,34 +80,36 @@ export default {
 
 // Helper function to convert HTML to JSON
 function helperConvertToJSON(html: string) {
-	// Parse HTML and extract relevant data
-	const title = helperExtractTitle(html);
-	const content = helperExtractContent(html);
-	const lastUpdated = new Date().toISOString();
+// Parse HTML and extract relevant data
+const title = helperExtractTitle(html);
+const content = helperExtractContent(html);
+const lastUpdated = new Date().toISOString();
 
-	return { title, content, lastUpdated };
+    return { title, content, lastUpdated };
+
 }
 
 // Helper function to extract title from HTML
 function helperExtractTitle(html: string) {
-	const titleMatch = html.match(/<title>(.\*?)<\/title>/i);
-	return titleMatch ? titleMatch[1] : 'No title found';
+const titleMatch = html.match(/<title>(.\*?)<\/title>/i);
+return titleMatch ? titleMatch[1] : 'No title found';
 }
 
 // Helper function to extract content from HTML
 function helperExtractContent(html: string) {
-	const bodyMatch = html.match(/<body>(.\*?)<\/body>/is);
-	if (!bodyMatch) return 'No content found';
+const bodyMatch = html.match(/<body>(.\*?)<\/body>/is);
+if (!bodyMatch) return 'No content found';
 
-	// Strip HTML tags for a simple text representation
-	const textContent = bodyMatch[1].replace(/<[^>]*>/g, ' ')
-		.replace(/\s+/g, ' ')
-		.trim();
+    // Strip HTML tags for a simple text representation
+    const textContent = bodyMatch[1].replace(/<[^>]*>/g, ' ')
+    	.replace(/\s+/g, ' ')
+    	.trim();
 
-	return textContent;
+    return textContent;
+
 }
 
-```
+````
 </TabItem>
 <TabItem label="wrangler.jsonc">
 ```json
@@ -118,7 +128,8 @@ function helperExtractContent(html: string) {
 		}
 	]
 }
-```
+````
+
 </TabItem>
 </Tabs>
 
