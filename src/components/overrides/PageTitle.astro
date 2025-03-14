@@ -32,7 +32,7 @@ const breadcrumbProps: Record<string, any> = {
 	id: "breadcrumbs",
 };
 
-const segments = slug.split("/");
+const segments = slug.split("/").filter(Boolean);
 
 for (let i = 0; i < segments.length; i++) {
 	if (i === 0) {

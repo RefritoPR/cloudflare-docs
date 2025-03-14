@@ -1,5 +1,7 @@
 ---
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import StarlightPage, {
+	type StarlightPageProps,
+} from "@astrojs/starlight/components/StarlightPage.astro";
 
 import HeroImageDark from "~/assets/Dev-Docs-Header-Illustration-Dark-Mode-cropped.svg";
 import HeroImageLight from "~/assets/Dev-Docs-Header-Illustration-Light-Mode-cropped.svg";
@@ -7,22 +9,27 @@ import HeroImageLight from "~/assets/Dev-Docs-Header-Illustration-Light-Mode-cro
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 import Render from "~/components/Render.astro";
 
+import { Image } from "astro:assets";
 import { render } from "astro:content";
 import { getChangelogs } from "~/util/changelog";
 
-const frontmatter = {
-	title: "Cloudflare Docs",
-	description: "Explore guides and tutorials for using Cloudflare.",
-	template: "splash",
-	hero: {
+const props = {
+	frontmatter: {
 		title: "Cloudflare Docs",
-		tagline: "Explore guides and tutorials for using Cloudflare.",
-		image: {
-			dark: HeroImageDark,
-			light: HeroImageLight,
-		},
+		description: "Explore guides and tutorials for using Cloudflare.",
+		template: "splash",
 	},
-} as const;
+	hideTitle: true,
+	hideBreadcrumbs: true,
+} as StarlightPageProps;
+
+const heroImageAttrs = {
+	loading: "eager" as const,
+	decoding: "async" as const,
+	width: 400,
+	height: 400,
+	alt: "Hero image",
+};
 
 const topCards = [
 	{
@@ -129,67 +136,33 @@ const footer = [
 const changelogs = await getChangelogs({}).then((arr) => arr.slice(0, 5));
 ---
 
-<StarlightPage frontmatter={frontmatter}>
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-		{
-			topCards.map((card) => (
-				<a
-					href={card.href}
-					class="rounded-md border border-solid border-gray-200 p-6 !text-inherit no-underline hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
-				>
-					<p class="!mt-0 font-semibold">{card.label}</p>
-					<div class="leading-2 !mt-1 text-sm">{card.description}</div>
-				</a>
-			))
-		}
-	</div>
-	<div class="flex flex-col items-center justify-center gap-10 py-16">
-		<h2>Explore Cloudflare offerings</h2>
-		<div class="not-content w-full shadow-md">
-			<ul
-				role="tablist"
-				class="grid list-none grid-cols-3 gap-2 pl-0 text-center"
-			>
-				{
-					["Overview", "Connect & Protect", "Build"].map((label, idx) => (
-						<li
-							role="presentation"
-							class="h-14 rounded-t border-l border-r border-t p-4"
-						>
-							{label}
-						</li>
-					))
-				}
-			</ul>
-			<div
-				class="h-72 overflow-hidden rounded-b border-b border-l border-r p-6"
-			>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-					non placerat arcu. Nunc ornare libero ut metus dignissim, vitae
-					efficitur justo pretium. Suspendisse arcu magna, condimentum at
-					rhoncus commodo, condimentum ut enim. Proin in hendrerit sapien, quis
-					hendrerit libero. Suspendisse et dictum tellus, vitae suscipit mi.
-					Proin vulputate at erat vel vulputate. Duis velit sapien, vestibulum
-					facilisis ex facilisis, molestie efficitur lacus. Aliquam erat
-					volutpat. Maecenas tempor tincidunt elementum. Aenean augue ante,
-					vehicula vitae lectus sit amet, dictum maximus lorem. Fusce vitae
-					ultricies tellus. Etiam gravida pulvinar quam, eu vehicula lorem.
-					Maecenas fermentum porttitor mauris. Vestibulum imperdiet turpis ut
-					malesuada facilisis. Etiam pharetra efficitur purus, sodales ultricies
-					orci condimentum vel. Pellentesque sagittis egestas lectus ut rutrum.
-					Curabitur ac libero sapien. Vestibulum tempus leo lectus. Phasellus a
-					convallis ante, non condimentum nibh. Fusce et lacus nibh. Proin
-					venenatis malesuada magna, vel pharetra mi.
+<StarlightPage {...props}>
+	<div class="space-y-16">
+		<div
+			class="flex flex-col-reverse items-center justify-center gap-8 md:flex-row"
+		>
+			<div>
+				<h1 class="text-5xl">Cloudflare Docs</h1>
+				<p class="text-xl">
+					Explore guides and tutorials for using Cloudflare.
 				</p>
 			</div>
+			<div>
+				<Image
+					src={HeroImageDark}
+					class="light:sl-hidden"
+					{...heroImageAttrs}
+				/>
+				<Image
+					src={HeroImageLight}
+					class="dark:sl-hidden"
+					{...heroImageAttrs}
+				/>
+			</div>
 		</div>
-	</div>
-	<div class="flex flex-col items-center justify-center gap-10 py-16">
-		<h2>Get started</h2>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
 			{
-				getStartedCards.map((card) => (
+				topCards.map((card) => (
 					<a
 						href={card.href}
 						class="rounded-md border border-solid border-gray-200 p-6 !text-inherit no-underline hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
@@ -200,80 +173,147 @@ const changelogs = await getChangelogs({}).then((arr) => arr.slice(0, 5));
 				))
 			}
 		</div>
-	</div>
-	<div class="flex w-full flex-col gap-10 py-16">
-		<div class="flex justify-between">
-			<h2>Build with Cloudflare</h2>
-			<a href="https://developers.cloudflare.com/workers/">
-				Learn more about Workers
-			</a>
-		</div>
-		<div>
-			<Tabs>
-				<TabItem label="Return HTML">
-					<Render file="return-html-example-js" product="workers" />
-				</TabItem>
-				<TabItem label="Return JSON">
-					<Render file="return-json-example-js" product="workers" />
-				</TabItem>
-				<TabItem label="Fetch HTML">
-					<Render file="fetch-html-example-js" product="workers" />
-				</TabItem>
-				<TabItem label="Redirect">
-					<Render file="redirect-example-js" product="workers" />
-				</TabItem>
-				<TabItem label="Respond with another site">
-					<Render file="respond-another-site-example-js" product="workers" />
-				</TabItem>
-			</Tabs>
-		</div>
-	</div>
-	<div class="flex flex-col items-center justify-center gap-10 py-16">
-		<h2>Documentation changelog</h2>
-		<div class="h-[28rem] w-3/4 overflow-y-scroll rounded border px-6 py-4">
-			<ul class="overflow-y-scroll pl-0">
-				{
-					changelogs.map(async (changelog) => {
-						const { Content } = await render(changelog);
-
-						return (
-							<li>
-								<h5>{changelog.data.title}</h5>
-								<div class="line-clamp-4">
-									<Content />
-								</div>
-								<a href={`/changelog/${changelog.id}`}>Read more</a>
+		<div class="flex flex-col items-center justify-center gap-10">
+			<h2>Explore Cloudflare offerings</h2>
+			<div class="not-content w-full shadow-md">
+				<ul
+					role="tablist"
+					class="grid list-none grid-cols-3 gap-2 pl-0 text-center"
+				>
+					{
+						["Overview", "Connect & Protect", "Build"].map((label, idx) => (
+							<li
+								role="presentation"
+								class="h-14 rounded-t border-l border-r border-t p-4"
+							>
+								{label}
 							</li>
-						);
-					})
-				}
-			</ul>
-		</div>
-		<a href="/changelog/"> Go to full changelog </a>
-	</div>
-	<div class="not-content grid grid-cols-1 gap-8 py-16 md:grid-cols-3">
-		{
-			footer.map((group) => (
-				<div>
-					<p>{group.heading}</p>
-					<p>{group.description}</p>
-					<ul class="list-none pl-0">
-						{group.links.map((item) => (
-							<li>
-								<a href={item.href}>{item.label}</a>
-							</li>
-						))}
-					</ul>
+						))
+					}
+				</ul>
+				<div
+					class="h-72 overflow-hidden rounded-b border-b border-l border-r p-6"
+				>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+						non placerat arcu. Nunc ornare libero ut metus dignissim, vitae
+						efficitur justo pretium. Suspendisse arcu magna, condimentum at
+						rhoncus commodo, condimentum ut enim. Proin in hendrerit sapien,
+						quis hendrerit libero. Suspendisse et dictum tellus, vitae suscipit
+						mi. Proin vulputate at erat vel vulputate. Duis velit sapien,
+						vestibulum facilisis ex facilisis, molestie efficitur lacus. Aliquam
+						erat volutpat. Maecenas tempor tincidunt elementum. Aenean augue
+						ante, vehicula vitae lectus sit amet, dictum maximus lorem. Fusce
+						vitae ultricies tellus. Etiam gravida pulvinar quam, eu vehicula
+						lorem. Maecenas fermentum porttitor mauris. Vestibulum imperdiet
+						turpis ut malesuada facilisis. Etiam pharetra efficitur purus,
+						sodales ultricies orci condimentum vel. Pellentesque sagittis
+						egestas lectus ut rutrum. Curabitur ac libero sapien. Vestibulum
+						tempus leo lectus. Phasellus a convallis ante, non condimentum nibh.
+						Fusce et lacus nibh. Proin venenatis malesuada magna, vel pharetra
+						mi.
+					</p>
 				</div>
-			))
-		}
+			</div>
+		</div>
+		<div class="flex flex-col items-center justify-center gap-10">
+			<h2>Get started</h2>
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+				{
+					getStartedCards.map((card) => (
+						<a
+							href={card.href}
+							class="rounded-md border border-solid border-gray-200 p-6 !text-inherit no-underline hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+						>
+							<p class="!mt-0 font-semibold">{card.label}</p>
+							<div class="leading-2 !mt-1 text-sm">{card.description}</div>
+						</a>
+					))
+				}
+			</div>
+		</div>
+		<div class="flex w-full flex-col gap-10">
+			<div class="flex justify-between">
+				<h2>Build with Cloudflare</h2>
+				<a href="https://developers.cloudflare.com/workers/">
+					Learn more about Workers
+				</a>
+			</div>
+			<div>
+				<Tabs>
+					<TabItem label="Return HTML">
+						<Render file="return-html-example-js" product="workers" />
+					</TabItem>
+					<TabItem label="Return JSON">
+						<Render file="return-json-example-js" product="workers" />
+					</TabItem>
+					<TabItem label="Fetch HTML">
+						<Render file="fetch-html-example-js" product="workers" />
+					</TabItem>
+					<TabItem label="Redirect">
+						<Render file="redirect-example-js" product="workers" />
+					</TabItem>
+					<TabItem label="Respond with another site">
+						<Render file="respond-another-site-example-js" product="workers" />
+					</TabItem>
+				</Tabs>
+			</div>
+		</div>
+		<div class="flex flex-col items-center justify-center gap-10">
+			<h2>Documentation changelog</h2>
+			<div class="h-[28rem] w-3/4 overflow-y-scroll rounded border px-6 py-4">
+				<ul class="overflow-y-scroll pl-0">
+					{
+						changelogs.map(async (changelog) => {
+							const { Content } = await render(changelog);
+
+							return (
+								<li>
+									<h5>{changelog.data.title}</h5>
+									<div class="line-clamp-4">
+										<Content />
+									</div>
+									<a href={`/changelog/${changelog.id}`}>Read more</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+			<a href="/changelog/"> Go to full changelog </a>
+		</div>
+		<div class="not-content grid grid-cols-1 gap-8 md:grid-cols-3">
+			{
+				footer.map((group) => (
+					<div>
+						<p>{group.heading}</p>
+						<p>{group.description}</p>
+						<ul class="list-none pl-0">
+							{group.links.map((item) => (
+								<li>
+									<a href={item.href}>{item.label}</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
 	</div>
 </StarlightPage>
 
 <style>
 	:root {
 		.content-panel {
-			--sl-content-pad-x: 4rem;
+			--sl-content-pad-x: 1rem;
+
+			@media (width >= 48rem) {
+				--sl-content-pad-x: 2rem;
+			}
+
+			@media (width >= 64rem) {
+				--sl-content-pad-x: 4rem;
+			}
 		}
 
 		.sl-container {
