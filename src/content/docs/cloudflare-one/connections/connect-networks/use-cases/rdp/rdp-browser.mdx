@@ -8,7 +8,7 @@ sidebar:
     text: Beta
 ---
 
-import { Render } from "~/components"
+import { Render, GlossaryTooltip  } from "~/components"
 
 :::note
 Browser-based RDP is currently in closed beta. To try out the feature, contact your account team.
@@ -85,6 +85,26 @@ Ensure that only **Allow** or **Block** policies are present. **Bypass** and **S
 19. Select **Save**.
 
 ## 4. Connect as a user
+
+To connect to a Windows machine over RDP:
+
+1. Open a browser and go to your App Launcher URL:
+
+	```text
+	https://<your-team-name>.cloudflareaccess.com
+	```
+
+	Replace `<your-team-name>` with your Zero Trust <GlossaryTooltip term="team name">team name</GlossaryTooltip>.
+2. Follow the prompts to log in to your identity provider.
+
+	Once you have authenticated, the App Launcher will display tiles showing the applications that you are authorized to use. Windows servers (targets) available through browser-based RDP will also appear as tiles. If a target is reachable through multiple application, the App Launcher will show a tile for each application.
+3. Select the target you want to connect to.
+
+	The App Launcher tile will launch a URL of the form `https://<app-domain>/rdp/<vnet-id>/<target-ip>/<port>`. You may also navigate directly to this URL.
+4. Select the port that you want to connect to. You will only see this screen if the Access application allows RDP traffic on multiple ports (for example, port `3389` and port `65321`).
+5. Enter your Windows username and password.
+
+You now have access to the remote Windows desktop.
 
 ## Product compatibility
 
