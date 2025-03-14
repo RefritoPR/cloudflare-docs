@@ -14,7 +14,7 @@ import { Render, GlossaryTooltip  } from "~/components"
 Browser-based RDP is currently in closed beta. To try out the feature, contact your account team.
 :::
 
-With Cloudflare Zero Trust, you can allow users to connect to an RDP server without installing an RDP client or the WARP client on their device. This method requires installing `cloudflared` on your RDP server (or any other host machine within the private network) and routing RDP traffic over a public hostname.
+With Cloudflare Zero Trust, users can connect to an RDP server without installing an RDP client or the WARP client on their device. Browser-based RDP requires installing `cloudflared` on your RDP server (or any other host machine within the private network) and routing RDP traffic over a public hostname.
 
 The user logs in first to the App Launcher with their Cloudflare Access credentials and then initiates an RDP connection within the browser to their Windows machine. Users will authenticate to the Windows machine using their pre-configured Windows username and password. Cloudflare does not manage any credentials on the Windows server. A user may also navigate directly to the Windows server using a public URL. The authentication flow will be unchanged; first users must log in to Cloudflare Access and then use their Windows credentials to authenticate to the Windows machine.
 
@@ -97,11 +97,11 @@ To connect to a Windows machine over RDP:
 	Replace `<your-team-name>` with your Zero Trust <GlossaryTooltip term="team name">team name</GlossaryTooltip>.
 2. Follow the prompts to log in to your identity provider.
 
-	Once you have authenticated, the App Launcher will display tiles showing the applications that you are authorized to use. Windows servers (targets) available through browser-based RDP will also appear as tiles. If a target is reachable through multiple application, the App Launcher will show a tile for each application.
+	Once you have authenticated, the App Launcher will display tiles showing the applications that you are authorized to use. Windows servers (targets) available through browser-based RDP will also appear as tiles. If a target is reachable through multiple Access applications, the target will have a tile per Access application.
 3. Select the target you want to connect to.
 
 	The App Launcher tile will launch a URL of the form `https://<app-domain>/rdp/<vnet-id>/<target-ip>/<port>`. You may also navigate directly to this URL.
-4. Select the port that you want to connect to. You will only see this screen if the Access application allows RDP traffic on multiple ports (for example, port `3389` and port `65321`).
+4. Select the port that you want to connect to. The port selection screen only appears if the Access application allows RDP traffic on multiple ports (for example, port `3389` and port `65321`).
 5. Enter your Windows username and password.
 
 You now have access to the remote Windows desktop.
