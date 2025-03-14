@@ -1,18 +1,10 @@
 ---
-params:
-  - private?
+{}
 
 ---
-
-import { Render } from "~/components"
 
 (Optional) Configure advanced settings:
 
 		- [**Cross-Origin Resource Sharing (CORS) settings**](/cloudflare-one/identity/authorization-cookie/cors/)
 		- [**Cookie settings**](/cloudflare-one/identity/authorization-cookie/#cookie-settings)
 		- **401 Response for Service Auth policies**: Return a `401` response code when a user (or machine) makes a request to the application without the correct [service token](/cloudflare-one/identity/service-tokens/).
-
-		{
-			props.private && (
-				<p> These settings only apply to private hostnames and require [Gateway TLS decryption](/cloudflare-one/policies/gateway/http-policies/tls-decryption/).</p> )
-			}
