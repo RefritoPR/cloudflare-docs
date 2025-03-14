@@ -11,14 +11,12 @@ import { render } from "astro:content";
 import { getChangelogs } from "~/util/changelog";
 
 const frontmatter = {
-	title: "Welcome to Cloudflare",
-	description:
-		"Explore guides and tutorials to start building on Cloudflare's platform",
+	title: "Cloudflare Docs",
+	description: "Explore guides and tutorials for using Cloudflare.",
 	template: "splash",
 	hero: {
-		title: "Welcome to Cloudflare",
-		tagline:
-			"Explore guides and tutorials to start building on Cloudflare's platform",
+		title: "Cloudflare Docs",
+		tagline: "Explore guides and tutorials for using Cloudflare.",
 		image: {
 			dark: HeroImageDark,
 			light: HeroImageLight,
@@ -153,7 +151,7 @@ const changelogs = await getChangelogs({}).then((arr) => arr.slice(0, 5));
 				class="grid list-none grid-cols-3 gap-2 pl-0 text-center"
 			>
 				{
-					["Overview", "Connect & Protect", "Build"].map((label) => (
+					["Overview", "Connect & Protect", "Build"].map((label, idx) => (
 						<li
 							role="presentation"
 							class="h-14 rounded-t border-l border-r border-t p-4"
@@ -163,7 +161,9 @@ const changelogs = await getChangelogs({}).then((arr) => arr.slice(0, 5));
 					))
 				}
 			</ul>
-			<div class="h-72 overflow-hidden rounded-b p-6">
+			<div
+				class="h-72 overflow-hidden rounded-b border-b border-l border-r p-6"
+			>
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
 					non placerat arcu. Nunc ornare libero ut metus dignissim, vitae
@@ -251,7 +251,7 @@ const changelogs = await getChangelogs({}).then((arr) => arr.slice(0, 5));
 		</div>
 		<a href="/changelog/"> Go to full changelog </a>
 	</div>
-	<div class="not-content flex justify-center gap-8 py-16">
+	<div class="not-content grid grid-cols-1 gap-8 py-16 md:grid-cols-3">
 		{
 			footer.map((group) => (
 				<div>
