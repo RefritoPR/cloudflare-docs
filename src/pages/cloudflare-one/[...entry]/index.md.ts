@@ -6,6 +6,7 @@ import { entryToString } from "~/util/container";
 
 import { process } from "~/util/rehype";
 import rehypeParse from "rehype-parse";
+import rehypeBaseUrl from "~/plugins/rehype/base-url";
 import rehypeFilterElements from "~/plugins/rehype/filter-elements";
 import remarkGfm from "remark-gfm";
 import rehypeRemark from "rehype-remark";
@@ -35,6 +36,7 @@ export const GET: APIRoute<Props> = async (context) => {
 
 	const md = await process(html, [
 		rehypeParse,
+		rehypeBaseUrl,
 		rehypeFilterElements,
 		remarkGfm,
 		rehypeRemark,

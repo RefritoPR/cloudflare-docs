@@ -91,15 +91,19 @@ const ALLOWED_ELEMENTS = [
 	"th",
 	"thead",
 	"tr",
+	// Images
+	"img",
 	// Custom elements
 	"rule-id",
 	"starlight-tabs",
+	"starlight-image-zoom-zoomable",
 ];
 
 const ALLOWED_ATTRIBUTES: Record<string, string[]> = {
 	a: ["href", "id", "target"],
 	pre: ["dataLanguage"],
 	code: ["className"],
+	img: ["src", "alt"],
 	"rule-id": ["id"],
 };
 
@@ -133,6 +137,31 @@ export default function () {
 				}
 
 				if (tag === "pre") {
+					if (classNames.includes("mermaid")) {
+						const definition = element.children.find(
+							(child) => child.type === "text",
+						);
+						if (!definition) return;
+
+						element.children = [
+							{
+								type: "element",
+								tagName: "code",
+								properties: {
+									className: ["language-mermaid"],
+								},
+								children: [
+									{
+										type: "text",
+										value: definition.value,
+									},
+								],
+							},
+						];
+
+						return;
+					}
+
 					const language = element.properties.dataLanguage;
 					if (!language) return;
 
