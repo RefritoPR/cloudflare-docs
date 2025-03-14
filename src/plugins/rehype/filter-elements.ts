@@ -1,5 +1,6 @@
 import { SKIP, visit, type VisitorResult } from "unist-util-visit";
 import type { Root, Element, Parents } from "hast";
+import { selectAll } from "hast-util-select";
 
 const remove = (index: number, parent: Parents): VisitorResult => {
 	parent.children.splice(index, 1);
@@ -92,6 +93,7 @@ const ALLOWED_ELEMENTS = [
 	"tr",
 	// Custom elements
 	"rule-id",
+	"starlight-tabs",
 ];
 
 const ALLOWED_ATTRIBUTES: Record<string, string[]> = {
@@ -149,6 +151,47 @@ export default function () {
 							{ type: "text", value: element.properties.id as string },
 						],
 					});
+				}
+
+				if (tag === "starlight-tabs") {
+					const tabs = selectAll('[role="tab"]', element);
+					const panels = selectAll('[role="tabpanel"]', element);
+
+					element.tagName = "ul";
+					element.properties = {};
+					element.children = [];
+
+					for (const tab of tabs) {
+						const id = (tab.properties?.id as string)?.split("tab-")[1];
+						if (!id) continue;
+
+						const panel = panels.find(
+							(panel) => panel.properties?.id === `tab-panel-${id}`,
+						);
+						if (!panel) continue;
+
+						const label = tab.children
+							.filter((child) => child.type === "text" && child.value.trim())
+							.map((child) => child.type === "text" && child.value.trim())
+							.join("");
+
+						const el = {
+							type: "element",
+							tagName: "li",
+							properties: {},
+							children: [
+								{
+									type: "element",
+									tagName: "p",
+									children: [{ type: "text", value: label }],
+									properties: {},
+								},
+								panel,
+							],
+						} as Element;
+
+						element.children.push(el);
+					}
 				}
 			}
 		});
