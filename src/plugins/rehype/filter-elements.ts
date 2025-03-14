@@ -38,7 +38,7 @@ const ALLOWED_ELEMENTS = [
 	"div",
 	"dl",
 	"dt",
-	"figcaption",
+	// "figcaption",
 	"figure",
 	"hr",
 	"li",
@@ -96,6 +96,8 @@ const ALLOWED_ELEMENTS = [
 
 const ALLOWED_ATTRIBUTES: Record<string, string[]> = {
 	a: ["href", "id", "target"],
+	pre: ["dataLanguage"],
+	code: ["className"],
 	"rule-id": ["id"],
 };
 
@@ -126,6 +128,18 @@ export default function () {
 					if (!ALLOWED_ATTRIBUTES[tag]?.includes(key)) {
 						delete element.properties[key];
 					}
+				}
+
+				if (tag === "pre") {
+					const language = element.properties.dataLanguage;
+					if (!language) return;
+
+					const code = element.children.find(
+						(child) => child.type === "element" && child.tagName === "code",
+					);
+					if (!code) return;
+
+					(code as Element).properties.className = [`language-${language}`];
 				}
 
 				if (tag === "rule-id") {
